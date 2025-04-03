@@ -160,9 +160,12 @@ export default {
 
     /* Left alignment (default) */
     &.ww-timeline--align-left {
+      /* Allow container to be used for container queries */
       .ww-timeline__container {
+        container-type: inline-size;
         padding-left: 40px;
 
+        /* Small screens - connector at left */
         &::before {
           content: "";
           position: absolute;
@@ -175,6 +178,16 @@ export default {
           ); /* Center the connector regardless of width */
           background-color: var(--connector-color);
         }
+
+        /* Larger container - connector in center */
+        @container (min-width: 500px) {
+          padding-left: 0;
+
+          &::before {
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
       }
 
       .ww-timeline__marker {
@@ -182,6 +195,12 @@ export default {
         left: -32px; /* Position relative to connector */
         top: 15px;
         transform: translateX(-50%); /* Center the marker on the connector */
+
+        /* Larger container - marker in center */
+        @container (min-width: 500px) {
+          left: calc(50% - var(--marker-size));
+          transform: none;
+        }
       }
 
       .ww-timeline__content {
@@ -189,14 +208,26 @@ export default {
         display: flex;
         justify-content: flex-start;
         width: 100%;
+
+        /* Larger container - keep all content on the left side of center connector */
+        @container (min-width: 500px) {
+          width: 45%;
+          margin-right: 50%; /* Push content to the left of the centered line */
+          margin-left: 0;
+          text-align: right;
+          justify-content: flex-end;
+          padding-right: 30px;
+        }
       }
     }
 
     /* Right alignment */
     &.ww-timeline--align-right {
       .ww-timeline__container {
+        container-type: inline-size;
         padding-right: 40px;
 
+        /* Default - connector at right */
         &::before {
           content: "";
           position: absolute;
@@ -209,6 +240,17 @@ export default {
           ); /* Center the connector regardless of width */
           background-color: var(--connector-color);
         }
+
+        /* Large screens - connector in center */
+        @container (min-width: 500px) {
+          padding-right: 0;
+
+          &::before {
+            right: auto;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+        }
       }
 
       .ww-timeline__marker {
@@ -216,6 +258,13 @@ export default {
         right: -32px; /* Position relative to connector */
         top: 15px;
         transform: translateX(50%); /* Center the marker on the connector */
+
+        /* Large screens - marker in center */
+        @container (min-width: 500px) {
+          right: auto;
+          left: 50%;
+          transform: none;
+        }
       }
 
       .ww-timeline__content {
@@ -224,6 +273,17 @@ export default {
         display: flex;
         justify-content: flex-end;
         width: 100%; /* Use full width */
+
+        /* Large screens - content on right side of center connector */
+        @container (min-width: 500px) {
+          width: 45%;
+          margin-left: 50%; /* Push content to the right of the centered line */
+          margin-right: 0;
+          text-align: left;
+          justify-content: flex-start;
+          align-items: flex-start;
+          padding-left: 60px;
+        }
       }
     }
 
