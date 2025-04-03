@@ -3,7 +3,7 @@
     class="ww-timeline"
     :class="[
       `ww-timeline--${content.timelineLayout}`,
-      `ww-timeline--align-${content.timelineLayout === 'vertical' ? content.eventsAlignmentVertical : content.eventsAlignmentHorizontal}`,
+      `ww-timeline--align-${validAlignment}`,
     ]"
   >
     <div
@@ -12,6 +12,9 @@
         '--connector-color': content.connectorColor,
         '--connector-width': content.connectorWidth,
         '--marker-size': content.markerSize,
+        '--marker-icon-size': content.markerIconSize,
+        '--marker-icon-color': content.markerIconColor,
+        '--marker-background-color': content.markerBackgroundColor,
       }"
     >
       <div
@@ -21,7 +24,7 @@
         :class="{
           'ww-timeline__event--alternate':
             content.timelineLayout === 'vertical' &&
-            content.eventsAlignmentVertical === 'alternate' &&
+            validAlignment === 'alternate' &&
             index % 2 === 1,
         }"
       >
@@ -30,34 +33,18 @@
           <div
             class="ww-timeline__marker"
             :class="[`ww-timeline__marker--${content.markerShape}`]"
-            :style="{
-              backgroundColor: content.markerBackgroundColor,
-              width: content.markerSize,
-              height: content.markerSize,
-            }"
             @click="onMarkerClick(item)"
           >
-            <wwElement
-              v-if="content.markerIconOnOff && content.markerIcon"
-              :ww-props="{
-                icon: content.markerIcon,
-                color: content.markerIconColor,
-              }"
-              v-bind="content.markerIconElement"
-              class="ww-timeline__marker-icon"
-            />
+            <template v-if="content.markerIconOnOff && content.markerIcon">
+              <span v-html="iconHTML" class="ww-timeline__marker-icon" />
+            </template>
           </div>
 
           <!-- Event content -->
           <div class="ww-timeline__content" @click="onClick(item)">
             <wwElement
               v-bind="content.timelineElement"
-              :style="{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '8px',
-                alignItems: 'flex-start',
-              }"
+              class="ww-timeline__content-element"
             />
           </div>
         </wwLayoutItemContext>
@@ -67,6 +54,7 @@
 </template>
 
 <script>
+import { computed, ref, watch } from "vue";
 export default {
   props: {
     content: {
@@ -78,6 +66,40 @@ export default {
     /* wwEditor:end */
   },
   emits: ["trigger-event"],
+  setup(props) {
+    // Icon handling
+    const icon = computed(() => props.content.markerIcon);
+    const { getIcon } = wwLib.useIcons();
+    const iconHTML = ref("");
+    watch(
+      icon,
+      async () => {
+        iconHTML.value = await getIcon(icon.value);
+      },
+      { immediate: true },
+    );
+
+    // Handle alignment based on layout
+    const validAlignment = computed(() => {
+      const layout = props.content.timelineLayout;
+      const alignment = props.content.eventsAlignment;
+
+      if (layout === "vertical") {
+        // Check if the alignment is valid for vertical layout
+        return ["left", "right", "alternate"].includes(alignment)
+          ? alignment
+          : "alternate"; // Default fallback for vertical
+      } else {
+        // Check if the alignment is valid for horizontal layout
+        return ["top", "bottom"].includes(alignment) ? alignment : "top"; // Default fallback for horizontal
+      }
+    });
+
+    return {
+      iconHTML,
+      validAlignment,
+    };
+  },
   methods: {
     onClick(item) {
       this.$emit("trigger-event", { name: "click", event: { value: item } });
@@ -323,7 +345,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Width and height are now set via inline style */
+  width: var(--marker-size);
+  height: var(--marker-size);
+  background-color: var(--marker-background-color);
   z-index: 2;
   cursor: pointer;
   /* No transition or hover effect */
@@ -337,9 +361,36 @@ export default {
   }
 }
 
+.ww-timeline__marker-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--marker-icon-size);
+  height: var(--marker-icon-size);
+  color: var(--marker-icon-color);
+
+  :deep(svg) {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
 .ww-timeline__content {
   cursor: pointer;
   display: flex;
-  width: 100%;
+  /* Allow the content to adapt to its children's size */
+  width: auto;
+}
+
+.ww-timeline__content-element {
+  /* Base styles for the content element */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+
+  // /* This ensures any width/height set on the element will be respected */
+  // width: inherit; /* Inherit any width set on this element */
+  // height: inherit; /* Inherit any height set on this element */
 }
 </style>

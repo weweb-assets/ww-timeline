@@ -12,10 +12,11 @@ export default {
         "markerStyle",
         "markerShape",
         "markerSize",
+        "markerBackgroundColor",
         "markerIconOnOff",
         "markerIcon",
         "markerIconColor",
-        "markerBackgroundColor",
+        "markerIconSize",
       ],
       [
         "timelineStyle",
@@ -96,6 +97,21 @@ export default {
         type: "string",
         tooltip:
           'The color of the icon in timeline markers\n\nColor string (e.g., "#FFFFFF", "rgba(255,255,255,0.5)")',
+      },
+      /* wwEditor:end */
+    },
+    markerIconSize: {
+      label: { en: "Marker Icon Size" },
+      type: "Length",
+      section: "style",
+      bindable: true,
+      defaultValue: "12px",
+      hidden: (content) => !content.markerIconOnOff,
+      /* wwEditor:start */
+      bindingValidation: {
+        type: "string",
+        tooltip:
+          'The size (width and height) of the icon in timeline markers\n\nLength in pixels (e.g., "12px")',
       },
       /* wwEditor:end */
     },
@@ -183,50 +199,39 @@ export default {
       },
       /* wwEditor:end */
     },
-    eventsAlignmentVertical: {
+    eventsAlignment: {
       label: { en: "Events Alignment" },
       type: "TextRadioGroup",
       section: "style",
       bindable: true,
       defaultValue: "left",
-      hidden: (content) => content.timelineLayout !== "vertical",
-      options: {
-        choices: [
-          { value: "left", title: "Left", icon: "16/alignment-left" },
-          { value: "right", title: "Right", icon: "16/alignment-right" },
-          {
-            value: "alternate",
-            title: "Alternate",
-            icon: "16/alignment-justify",
-          },
-        ],
+      options: (content) => {
+        if (content.timelineLayout === "vertical") {
+          return {
+            choices: [
+              { value: "left", title: "Left", icon: "16/alignment-left" },
+              { value: "right", title: "Right", icon: "16/alignment-right" },
+              {
+                value: "alternate",
+                title: "Alternate",
+                icon: "16/alignment-justify",
+              },
+            ],
+          };
+        } else {
+          return {
+            choices: [
+              { value: "top", title: "Top", icon: "16/arrow-top" },
+              { value: "bottom", title: "Bottom", icon: "16/arrow-bottom" },
+            ],
+          };
+        }
       },
       /* wwEditor:start */
       bindingValidation: {
         type: "string",
         tooltip:
-          "The alignment of timeline events: left/right/alternate for vertical, top/bottom for horizontal",
-      },
-      /* wwEditor:end */
-    },
-    eventsAlignmentHorizontal: {
-      label: { en: "Events Alignment" },
-      type: "TextRadioGroup",
-      section: "style",
-      bindable: true,
-      defaultValue: "top",
-      hidden: (content) => content.timelineLayout !== "horizontal",
-      options: {
-        choices: [
-          { value: "top", title: "Top", icon: "16/arrow-top" },
-          { value: "bottom", title: "Bottom", icon: "16/arrow-bottom" },
-        ],
-      },
-      /* wwEditor:start */
-      bindingValidation: {
-        type: "string",
-        tooltip:
-          "The alignment of timeline events: left/right/alternate for vertical, top/bottom for horizontal",
+          'The alignment of timeline events\n\nFor vertical: "left", "right", or "alternate"\nFor horizontal: "top" or "bottom"',
       },
       /* wwEditor:end */
     },
@@ -260,10 +265,6 @@ export default {
     timelineElement: {
       hidden: true,
       defaultValue: { isWwObject: true, type: "ww-flexbox" },
-    },
-    markerIconElement: {
-      hidden: true,
-      defaultValue: { isWwObject: true, type: "ww-icon" },
     },
   },
   triggerEvents: [
