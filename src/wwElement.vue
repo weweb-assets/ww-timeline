@@ -38,7 +38,7 @@
           <div
             class="ww-timeline__marker"
             :class="[`ww-timeline__marker--${content.markerShape}`]"
-            @click="onMarkerClick(item)"
+            @click.stop="onMarkerClick(item)"
           >
             <template v-if="content.markerIconOnOff && content.markerIcon">
               <span v-html="iconHTML" class="ww-timeline__marker-icon" />
@@ -46,7 +46,7 @@
           </div>
 
           <!-- Event content -->
-          <div class="ww-timeline__content" @click="onClick(item)">
+          <div class="ww-timeline__content" @click.stop="onClick(item)">
             <wwElement
               v-bind="content.timelineElement"
               class="ww-timeline__content-element"

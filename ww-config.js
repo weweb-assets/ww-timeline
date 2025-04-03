@@ -105,6 +105,7 @@ export default {
       type: "Length",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "12px",
       hidden: (content) => !content.markerIconOnOff,
       /* wwEditor:start */
@@ -120,6 +121,7 @@ export default {
       type: "Length",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "16px",
       /* wwEditor:start */
       bindingValidation: {
@@ -170,6 +172,7 @@ export default {
       type: "Length",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "2px",
       /* wwEditor:start */
       bindingValidation: {
@@ -184,6 +187,7 @@ export default {
       type: "TextRadioGroup",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "vertical",
       options: {
         choices: [
@@ -204,6 +208,7 @@ export default {
       type: "TextRadioGroup",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "left",
       options: (content) => {
         if (content.timelineLayout === "vertical") {
