@@ -337,11 +337,6 @@ export default {
   }
 }
 
-.ww-timeline__marker-icon {
-  width: 75%;
-  height: 75%;
-}
-
 .ww-timeline__content {
   cursor: pointer;
   display: flex;
