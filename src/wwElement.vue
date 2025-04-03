@@ -285,7 +285,7 @@ export default {
     &.ww-timeline--align-bottom {
       .ww-timeline__container {
         padding-top: 20px;
-        padding-bottom: 40px;
+        padding-bottom: calc(40px + calc(var(--marker-size) / 2));
 
         &::before {
           content: "";
