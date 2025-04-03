@@ -290,7 +290,7 @@ export default {
         &::before {
           content: "";
           position: absolute;
-          bottom: 8px; /* Position at 8px from the bottom edge */
+          bottom: calc(8px + calc(var(--marker-size) / 2));
           left: 20px;
           right: 20px;
           height: var(--connector-width);
