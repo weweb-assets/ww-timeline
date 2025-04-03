@@ -249,12 +249,12 @@ export default {
     /* Top alignment (default) */
     &.ww-timeline--align-top {
       .ww-timeline__container {
-        padding-top: 40px;
+        padding-top: calc(40px + calc(var(--marker-size) / 2));
 
         &::before {
           content: "";
           position: absolute;
-          top: 8px; /* Position at 8px from the top edge */
+          top: calc(8px + calc(var(--marker-size) / 2));
           left: 20px;
           right: 20px;
           height: var(--connector-width);
