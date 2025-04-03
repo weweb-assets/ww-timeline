@@ -8,7 +8,7 @@ export default {
         },
         icon: 'history',
         customStylePropertiesOrder: [
-            ['markerStyle', 'markerShape', 'markerIconOnOff', 'markerIcon', 'markerIconColor', 'markerBackgroundColor'],
+            ['markerStyle', 'markerShape', 'markerSize', 'markerIconOnOff', 'markerIcon', 'markerIconColor', 'markerBackgroundColor'],
             ['timelineStyle', 'connectorColor', 'connectorWidth', 'timelineLayout', 'eventsAlignment'],
         ],
         customSettingsPropertiesOrder: [
@@ -80,6 +80,19 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'The color of the icon in timeline markers',
+            },
+            /* wwEditor:end */
+        },
+        markerSize: {
+            label: { en: 'Marker Size' },
+            type: 'Length',
+            section: 'style',
+            bindable: true,
+            defaultValue: '16px',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'The size (width and height) of timeline markers',
             },
             /* wwEditor:end */
         },

@@ -11,6 +11,7 @@
             :style="{
                 '--connector-color': content.connectorColor,
                 '--connector-width': content.connectorWidth,
+                '--marker-size': content.markerSize,
             }"
         >
             <div 
@@ -26,6 +27,8 @@
                         :class="[`ww-timeline__marker--${content.markerShape}`]"
                         :style="{
                             backgroundColor: content.markerBackgroundColor,
+                            width: content.markerSize,
+                            height: content.markerSize,
                         }"
                         @click="onMarkerClick(item)"
                     >
@@ -117,7 +120,7 @@ export default {
             
             .ww-timeline__marker {
                 position: absolute;
-                left: -32px; /* Adjusted to center on the connector */
+                left: -32px; /* Position relative to connector */
                 top: 15px;
                 transform: translateX(-50%); /* Center the marker on the connector */
             }
@@ -146,7 +149,7 @@ export default {
             
             .ww-timeline__marker {
                 position: absolute;
-                right: -32px; /* Adjusted to center on the connector */
+                right: -32px; /* Position relative to connector */
                 top: 15px;
                 transform: translateX(50%); /* Center the marker on the connector */
             }
@@ -250,7 +253,7 @@ export default {
             
             .ww-timeline__marker {
                 position: absolute;
-                top: -32px; /* Adjusted to center on the connector */
+                top: -32px; /* Position relative to connector */
                 left: 50%;
                 transform: translate(-50%, -50%); /* Center the marker on the connector */
             }
@@ -281,7 +284,7 @@ export default {
             
             .ww-timeline__marker {
                 position: absolute;
-                bottom: -32px; /* Adjusted to center on the connector */
+                bottom: -32px; /* Position relative to connector */
                 left: 50%;
                 transform: translate(-50%, 50%); /* Center the marker on the connector */
             }
@@ -298,15 +301,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
+    /* Width and height are now set via inline style */
     z-index: 2;
     cursor: pointer;
-    transition: transform 0.2s ease;
-
-    &:hover {
-        transform: scale(1.1) !important; /* Override the transform for centering when hovering */
-    }
+    /* No transition or hover effect */
 
     &--circle {
         border-radius: 50%;
@@ -318,8 +316,8 @@ export default {
 }
 
 .ww-timeline__marker-icon {
-    width: 12px;
-    height: 12px;
+    width: 75%;
+    height: 75%;
 }
 
 .ww-timeline__content {
