@@ -5,18 +5,23 @@
       `ww-timeline--${content.timelineLayout}`,
       `ww-timeline--align-${validAlignment}`,
     ]"
+    :style="{
+      '--connector-color': content.connectorColor,
+      '--connector-width': content.connectorWidth,
+      '--marker-size': content.markerSize,
+      '--marker-icon-size': content.markerIconSize,
+      '--marker-icon-color': content.markerIconColor,
+      '--marker-background-color': content.markerBackgroundColor,
+      '--connector-full-width': `${connectorWidth}px`,
+    }"
   >
+    <!-- Fixed connector line for horizontal layout -->
     <div
-      class="ww-timeline__container"
-      :style="{
-        '--connector-color': content.connectorColor,
-        '--connector-width': content.connectorWidth,
-        '--marker-size': content.markerSize,
-        '--marker-icon-size': content.markerIconSize,
-        '--marker-icon-color': content.markerIconColor,
-        '--marker-background-color': content.markerBackgroundColor,
-      }"
-    >
+      v-if="content.timelineLayout === 'horizontal'"
+      class="ww-timeline__fixed-connector"
+      :class="`ww-timeline__fixed-connector--${validAlignment}`"
+    />
+    <div ref="containerRef" class="ww-timeline__container">
       <div
         v-for="(item, index) in content.data"
         :key="index"
@@ -55,6 +60,8 @@
 
 <script>
 import { computed, ref, watch } from "vue";
+import { useElementSize } from "@vueuse/core";
+
 export default {
   props: {
     content: {
@@ -67,16 +74,34 @@ export default {
   },
   emits: ["trigger-event"],
   setup(props) {
+    // References for measuring elements
+    const containerRef = ref(null);
+    const { width: containerWidth } = useElementSize(containerRef);
+
     // Icon handling
     const icon = computed(() => props.content.markerIcon);
     const { getIcon } = wwLib.useIcons();
     const iconHTML = ref("");
+
+    // For horizontal timeline, calculate total content width based on actual content
+    const connectorWidth = computed(() => {
+      if (props.content.timelineLayout === "horizontal") {
+        // If we have a measurement for the container width, use it
+        // Otherwise, calculate a width based on the number of events
+        const dataLength = props.content?.data?.length || 0;
+        const minWidth = Math.max(100, dataLength * 250);
+
+        return containerWidth.value > 0 ? containerWidth.value : minWidth;
+      }
+      return 0;
+    });
+
     watch(
       icon,
       async () => {
         iconHTML.value = await getIcon(icon.value);
       },
-      { immediate: true },
+      { immediate: true }
     );
 
     // Handle alignment based on layout
@@ -98,6 +123,8 @@ export default {
     return {
       iconHTML,
       validAlignment,
+      containerRef,
+      connectorWidth,
     };
   },
   methods: {
@@ -252,6 +279,8 @@ export default {
   }
 
   &--horizontal {
+    position: relative; /* Positioning context for fixed connector */
+
     .ww-timeline__container {
       display: flex;
       position: relative;
@@ -268,7 +297,7 @@ export default {
       flex-direction: column;
       align-items: center;
     }
-    
+
     .ww-timeline__content {
       width: auto; /* Allow content to size to its children */
       flex: 0 0 auto; /* Prevent flex growing/shrinking */
@@ -279,17 +308,9 @@ export default {
       .ww-timeline__container {
         padding-top: calc(40px + calc(var(--marker-size) / 2));
 
+        /* Hide the original ::before connector when using fixed connector */
         &::before {
-          content: "";
-          position: absolute;
-          top: calc(8px + calc(var(--marker-size) / 2));
-          left: 20px;
-          right: 20px;
-          height: var(--connector-width);
-          transform: translateY(
-            calc(-1 * var(--connector-width) / 2)
-          ); /* Center the connector regardless of width */
-          background-color: var(--connector-color);
+          display: none;
         }
       }
 
@@ -315,17 +336,9 @@ export default {
         padding-top: 20px;
         padding-bottom: calc(40px + calc(var(--marker-size) / 2));
 
+        /* Hide the original ::before connector when using fixed connector */
         &::before {
-          content: "";
-          position: absolute;
-          bottom: calc(8px + calc(var(--marker-size) / 2));
-          left: 20px;
-          right: 20px;
-          height: var(--connector-width);
-          transform: translateY(
-            calc(var(--connector-width) / 2)
-          ); /* Center the connector regardless of width */
-          background-color: var(--connector-color);
+          display: none;
         }
       }
 
@@ -381,6 +394,29 @@ export default {
   }
 }
 
+.ww-timeline__fixed-connector {
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  pointer-events: none; /* Allow clicking through the connector */
+  background-color: var(--connector-color);
+  height: var(--connector-width);
+  width: var(--connector-full-width);
+  margin: 0 20px;
+
+  &--top {
+    top: calc(
+      8px + calc(var(--marker-size) / 2) - calc(var(--connector-width) / 2)
+    );
+  }
+
+  &--bottom {
+    bottom: calc(
+      24px + calc(var(--marker-size) / 2) - calc(var(--connector-width) / 2)
+    );
+  }
+}
+
 .ww-timeline__content {
   cursor: pointer;
   display: flex;
@@ -393,7 +429,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  
+
   /* This ensures any width/height set on the element will be respected */
   width: inherit; /* Inherit any width set on this element */
   height: inherit; /* Inherit any height set on this element */
@@ -404,16 +440,16 @@ export default {
   &.ww-timeline--align-left .ww-timeline__content-element {
     align-items: flex-start;
   }
-  
+
   &.ww-timeline--align-right .ww-timeline__content-element {
     align-items: flex-end;
   }
-  
+
   &.ww-timeline--align-alternate {
     .ww-timeline__content-element {
       align-items: flex-end;
     }
-    
+
     .ww-timeline__event--alternate .ww-timeline__content-element {
       align-items: flex-start;
     }
