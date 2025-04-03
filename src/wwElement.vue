@@ -186,6 +186,9 @@ export default {
 
       .ww-timeline__content {
         text-align: left;
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
       }
     }
 
@@ -218,6 +221,9 @@ export default {
       .ww-timeline__content {
         text-align: right;
         align-items: flex-end;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%; /* Use full width */
       }
     }
 
@@ -256,10 +262,12 @@ export default {
         }
 
         .ww-timeline__content {
-          width: calc(100% - 30px);
+          width: 100%;
           margin-right: 30px;
           text-align: right;
           align-items: flex-end;
+          display: flex;
+          justify-content: flex-end;
         }
 
         &--alternate {
@@ -272,6 +280,8 @@ export default {
             margin-left: 30px;
             text-align: left;
             align-items: flex-start;
+            justify-content: flex-start;
+            width: 100%;
           }
         }
       }
@@ -420,8 +430,8 @@ export default {
 .ww-timeline__content {
   cursor: pointer;
   display: flex;
-  /* Allow the content to adapt to its children's size */
-  width: auto;
+  /* Full width by default to allow proper alignment */
+  width: 100%;
 }
 
 .ww-timeline__content-element {
