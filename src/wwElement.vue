@@ -257,15 +257,21 @@ export default {
       position: relative;
       padding: 40px 20px 20px;
       overflow-x: auto;
+      width: 100%; /* Ensure the container takes full width */
     }
 
     .ww-timeline__event {
       position: relative;
-      min-width: 200px;
+      flex: 0 0 auto; /* Don't allow event to grow or shrink */
       margin: 0 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
+    }
+    
+    .ww-timeline__content {
+      width: auto; /* Allow content to size to its children */
+      flex: 0 0 auto; /* Prevent flex growing/shrinking */
     }
 
     /* Top alignment (default) */
@@ -387,10 +393,34 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: flex-start;
+  
+  /* This ensures any width/height set on the element will be respected */
+  width: inherit; /* Inherit any width set on this element */
+  height: inherit; /* Inherit any height set on this element */
+}
 
-  // /* This ensures any width/height set on the element will be respected */
-  // width: inherit; /* Inherit any width set on this element */
-  // height: inherit; /* Inherit any height set on this element */
+/* Different alignment depending on timeline layout and alignment */
+.ww-timeline--vertical {
+  &.ww-timeline--align-left .ww-timeline__content-element {
+    align-items: flex-start;
+  }
+  
+  &.ww-timeline--align-right .ww-timeline__content-element {
+    align-items: flex-end;
+  }
+  
+  &.ww-timeline--align-alternate {
+    .ww-timeline__content-element {
+      align-items: flex-end;
+    }
+    
+    .ww-timeline__event--alternate .ww-timeline__content-element {
+      align-items: flex-start;
+    }
+  }
+}
+
+.ww-timeline--horizontal .ww-timeline__content-element {
+  align-items: center;
 }
 </style>
