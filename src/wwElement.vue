@@ -160,6 +160,13 @@ export default {
 
     /* Left alignment (default) */
     &.ww-timeline--align-left {
+      .ww-timeline__event {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+      }
+
       /* Allow container to be used for container queries */
       .ww-timeline__container {
         container-type: inline-size;
@@ -211,7 +218,7 @@ export default {
 
         /* Larger container - keep all content on the right side of center connector */
         @container (min-width: 500px) {
-          width: calc(50% - var(--marker-size) - 10px);
+          width: calc(50% - var(--marker-size) / 2);
           margin-right: 0;
           text-align: left;
           justify-content: flex-start;
@@ -274,7 +281,7 @@ export default {
 
         /* Large screens - content on left side of center connector */
         @container (min-width: 500px) {
-          width: calc(50% - var(--marker-size) - 10px);
+          width: calc(50% - var(--marker-size) / 2);
           margin-left: 0;
           text-align: right;
           justify-content: flex-end;
