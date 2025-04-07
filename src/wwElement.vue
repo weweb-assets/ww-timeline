@@ -262,7 +262,7 @@ export default {
         /* Large screens - marker in center */
         @container (min-width: 500px) {
           right: auto;
-          left: 50%;
+          left: calc(50% - var(--marker-size));
           transform: none;
         }
       }
