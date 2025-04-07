@@ -209,14 +209,13 @@ export default {
         justify-content: flex-start;
         width: 100%;
 
-        /* Larger container - keep all content on the left side of center connector */
+        /* Larger container - keep all content on the right side of center connector */
         @container (min-width: 500px) {
-          width: 45%;
-          margin-right: 50%; /* Push content to the left of the centered line */
-          margin-left: 0;
-          text-align: right;
-          justify-content: flex-end;
-          padding-right: 30px;
+          width: calc(50% - var(--marker-size) - 10px);
+          margin-right: 0;
+          text-align: left;
+          justify-content: flex-start;
+          align-items: flex-start;
         }
       }
     }
@@ -273,15 +272,13 @@ export default {
         justify-content: flex-end;
         width: 100%; /* Use full width */
 
-        /* Large screens - content on right side of center connector */
+        /* Large screens - content on left side of center connector */
         @container (min-width: 500px) {
-          width: 45%;
-          margin-left: 50%; /* Push content to the right of the centered line */
-          margin-right: 0;
-          text-align: left;
-          justify-content: flex-start;
-          align-items: flex-start;
-          padding-left: 60px;
+          width: calc(50% - var(--marker-size) - 10px);
+          margin-left: 0;
+          text-align: right;
+          justify-content: flex-end;
+          align-items: flex-end;
         }
       }
     }
