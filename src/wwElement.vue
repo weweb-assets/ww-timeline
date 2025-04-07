@@ -198,7 +198,7 @@ export default {
 
         /* Larger container - marker in center */
         @container (min-width: 500px) {
-          left: calc(50% - calc(var(--marker-size) / 2) - 20px);
+          left: calc(50% - (var(--marker-size) / 2) - 20px);
           transform: none;
         }
       }
@@ -261,8 +261,7 @@ export default {
 
         /* Large screens - marker in center */
         @container (min-width: 500px) {
-          right: auto;
-          left: 50%;
+          left: calc(50% - (var(--marker-size) / 2) + 20px);
           transform: none;
         }
       }

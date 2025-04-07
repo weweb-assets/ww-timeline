@@ -41,6 +41,7 @@ export default {
       type: "TextRadioGroup",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "circle",
       options: {
         choices: [
@@ -61,6 +62,7 @@ export default {
       type: "OnOff",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: false,
       /* wwEditor:start */
       bindingValidation: {
@@ -75,6 +77,7 @@ export default {
       type: "SystemIcon",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: null,
       hidden: (content) => !content.markerIconOnOff,
       /* wwEditor:start */
@@ -90,6 +93,7 @@ export default {
       type: "Color",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "#FFFFFF",
       hidden: (content) => !content.markerIconOnOff,
       /* wwEditor:start */
@@ -136,6 +140,7 @@ export default {
       type: "Color",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "#4B5563",
       /* wwEditor:start */
       bindingValidation: {
@@ -158,6 +163,7 @@ export default {
       type: "Color",
       section: "style",
       bindable: true,
+      responsive: true,
       defaultValue: "#E5E7EB",
       /* wwEditor:start */
       bindingValidation: {
