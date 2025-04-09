@@ -379,7 +379,7 @@ export default {
     /* Top alignment (default) */
     &.ww-timeline--align-top {
       .ww-timeline__container {
-        padding-top: calc(40px + calc(var(--marker-size) / 2));
+        padding-top: calc(20px + var(--marker-size));
 
         /* Hide the original ::before connector when using fixed connector */
         &::before {
@@ -389,12 +389,7 @@ export default {
 
       .ww-timeline__marker {
         position: absolute;
-        top: -32px; /* Position relative to connector */
-        left: 50%;
-        transform: translate(
-          -50%,
-          -50%
-        ); /* Center the marker on the connector */
+        top: calc(-1 * var(--marker-size) - 12px);
       }
 
       .ww-timeline__content {
@@ -407,7 +402,7 @@ export default {
     &.ww-timeline--align-bottom {
       .ww-timeline__container {
         padding-top: 20px;
-        padding-bottom: calc(40px + calc(var(--marker-size) / 2));
+        padding-bottom: calc(20px + var(--marker-size));
 
         /* Hide the original ::before connector when using fixed connector */
         &::before {
@@ -417,12 +412,7 @@ export default {
 
       .ww-timeline__marker {
         position: absolute;
-        bottom: -32px; /* Position relative to connector */
-        left: 50%;
-        transform: translate(
-          -50%,
-          50%
-        ); /* Center the marker on the connector */
+        bottom: calc(-1 * var(--marker-size) - 12px);
       }
 
       .ww-timeline__content {
@@ -485,7 +475,7 @@ export default {
 
   &--bottom {
     bottom: calc(
-      24px + calc(var(--marker-size) / 2) - calc(var(--connector-width) / 2)
+      8px + calc(var(--marker-size) / 2) - calc(var(--connector-width) / 2)
     );
   }
 }
