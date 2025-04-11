@@ -42,6 +42,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "circle",
       options: {
         choices: [
@@ -63,6 +64,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: false,
       /* wwEditor:start */
       bindingValidation: {
@@ -78,6 +80,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: null,
       hidden: (content) => !content.markerIconOnOff,
       /* wwEditor:start */
@@ -94,6 +97,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "#FFFFFF",
       hidden: (content) => !content.markerIconOnOff,
       /* wwEditor:start */
@@ -110,6 +114,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "12px",
       hidden: (content) => !content.markerIconOnOff,
       /* wwEditor:start */
@@ -126,6 +131,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "16px",
       /* wwEditor:start */
       bindingValidation: {
@@ -141,6 +147,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "#4B5563",
       /* wwEditor:start */
       bindingValidation: {
@@ -164,6 +171,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "#E5E7EB",
       /* wwEditor:start */
       bindingValidation: {
@@ -179,6 +187,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "2px",
       /* wwEditor:start */
       bindingValidation: {
@@ -194,6 +203,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "vertical",
       options: {
         choices: [
@@ -215,6 +225,7 @@ export default {
       section: "style",
       bindable: true,
       responsive: true,
+      classes: true,
       defaultValue: "left",
       options: (content) => {
         if (content.timelineLayout === "vertical") {
@@ -255,6 +266,7 @@ export default {
       },
       section: "settings",
       bindable: true,
+      classes: true,
       defaultValue: [],
       /* wwEditor:start */
       bindingValidation: {
