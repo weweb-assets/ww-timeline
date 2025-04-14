@@ -101,7 +101,7 @@ export default {
       async () => {
         iconHTML.value = await getIcon(icon.value);
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     // Handle alignment based on layout
@@ -129,11 +129,14 @@ export default {
   },
   methods: {
     onClick(item) {
-      this.$emit("trigger-event", { name: "click", event: { value: item } });
+      this.$emit("trigger-event", {
+        name: "timeline:click",
+        event: { value: item },
+      });
     },
     onMarkerClick(item) {
       this.$emit("trigger-event", {
-        name: "markerClick",
+        name: "timeline:markerClick",
         event: { value: item },
       });
     },

@@ -292,12 +292,12 @@ export default {
   },
   triggerEvents: [
     {
-      name: "click",
+      name: "timeline:click",
       label: { en: "On event click" },
       event: { value: null },
     },
     {
-      name: "markerClick",
+      name: "timeline:markerClick",
       label: { en: "On marker click" },
       event: { value: null },
     },
