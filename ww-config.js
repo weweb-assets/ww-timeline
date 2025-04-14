@@ -266,7 +266,6 @@ export default {
       },
       section: "settings",
       bindable: true,
-      classes: true,
       defaultValue: [],
       /* wwEditor:start */
       bindingValidation: {
