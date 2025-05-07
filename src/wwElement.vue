@@ -91,7 +91,8 @@ export default {
         const dataLength = props.content?.data?.length || 0;
         const minWidth = Math.max(100, dataLength * 250);
 
-        return containerWidth.value > 0 ? containerWidth.value : minWidth;
+        // +40 is for margins
+        return containerWidth.value > 0 ? containerWidth.value + 40 : minWidth;
       }
       return 0;
     });
@@ -468,7 +469,6 @@ export default {
   background-color: var(--connector-color);
   height: var(--connector-width);
   width: var(--connector-full-width);
-  margin: 0 20px;
 
   &--top {
     top: calc(
