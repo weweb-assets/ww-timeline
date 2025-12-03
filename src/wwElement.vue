@@ -7,8 +7,8 @@
     ]"
     :style="{
       '--connector-color': content.connectorColor,
-      '--connector-width': content.connectorWidth,
       '--marker-size': content.markerSize,
+      '--connector-width': content.connectorWidth,
       '--marker-icon-size': content.markerIconSize,
       '--marker-icon-color': content.markerIconColor,
       '--marker-background-color': content.markerBackgroundColor,
