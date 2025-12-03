@@ -6,8 +6,8 @@
       `ww-timeline--align-${validAlignment}`,
     ]"
     :style="{
-      '--connector-color': content.connectorColor,
       '--marker-size': content.markerSize,
+      '--connector-color': content.connectorColor,
       '--connector-width': content.connectorWidth,
       '--marker-icon-size': content.markerIconSize,
       '--marker-icon-color': content.markerIconColor,
