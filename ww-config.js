@@ -288,11 +288,13 @@ export default {
       name: "timeline:click",
       label: { en: "On event click" },
       event: { value: null },
+        description: "Run when a timeline event is clicked.",
     },
     {
       name: "timeline:markerClick",
       label: { en: "On marker click" },
       event: { value: null },
+        description: "Run when a timeline marker is clicked.",
     },
   ],
 };
