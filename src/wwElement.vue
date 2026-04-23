@@ -459,6 +459,19 @@ export default {
     width: 100% !important;
     height: 100% !important;
   }
+
+  :deep(svg [fill]:not([fill="none"])),
+  :deep(svg path:not([fill])),
+  :deep(svg circle:not([fill])),
+  :deep(svg rect:not([fill])),
+  :deep(svg polygon:not([fill])),
+  :deep(svg ellipse:not([fill])) {
+    fill: currentColor;
+  }
+
+  :deep(svg [stroke]:not([stroke="none"])) {
+    stroke: currentColor;
+  }
 }
 
 .ww-timeline__fixed-connector {
